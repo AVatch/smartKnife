@@ -14,7 +14,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	{% endblock %}
 		<meta name="author" content="OpenEdit">
-	
 	<!-- Styles -->
 	{% block style_base %}
 		<link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
@@ -57,7 +56,13 @@
 				<p>Content did not load..ohh noes</p>
 			{% endblock %}
 		</div>
-    </div>
+		<div id="extra-sripts"> 
+			{% block end_script %}
+				<p>Content did not load..ohh noes</p>
+			{% endblock %}
+		</div>
+    	
+	</div>
 </body>
 
 </html>

@@ -6,7 +6,7 @@ from django.template.loader					import get_template
 from django.template						import Context
 from django.template						import RequestContext
 from django.utils 							import simplejson
-
+from django.core.urlresolvers import reverse
 
 import foursquare
 
@@ -21,11 +21,19 @@ import re as patt
 clientID 		= '1RRP5FHPMPWLXO5CHEUABYGERS23HKQSQ4PDIKCO0TEODB44'
 clientSecret 	= '14W01MTLD5W1XKDT3P1ZRF2WVPWRNWBIUQYSZMUB0IYK2L1O'
 
-itemToSearch = 'Potato'
+#itemToSearch = 'Potato'
 
-def homepage_view(request):
-	sitename = 'OpenEdit'
-	
+
+def choose_page(request):
+	#potato_url = reverse('result', args=('potato',))
+	#potato_url = reverse('result', args=('tomato',))
+	return render_to_response('chose.html', 
+#{'potato_url':potato_url,'tomato':tomato_url},
+	context_instance=RequestContext(request))
+
+def homepage_view(request,itemToSearch=''):
+	if len(itemToSearch) <= 0:
+		return render_to_response('error.html', context_instance=RequestContext(request))
 	'''Foursquare Fun'''
 	#construct the client object
 	client = foursquare.Foursquare(
@@ -87,23 +95,8 @@ def homepage_view(request):
 	directions = m
 	recipeImg = imageUrl.group(0)
 
-
-	'''Twilio Fun'''
-	from twilio.rest import TwilioRestClient
-
-	account_sid = "ACa9d55e2824dbbbd3bda7b4e5a7a2e418"
-	auth_token = "4e9d3571e0828ee83f24685fc4566615"
-	client = TwilioRestClient(account_sid, auth_token)
-
-	message = client.messages.create(to="+12673349121", from_="+16314065044",
-                                     body="Hello there! This hackathon sucks")
-	message = client.messages.create(to="+13479071371", from_="+16314065044",
-                                     body="Hello there! This hackathon sucks")
-	message = client.messages.create(to="+19172727758", from_="+16314065044",
-                                     body="Hello there! This hackathon sucks")
-
-
 	'''Nokia Maps Fun'''
 	#See embedded js in homepage.html
+	sitename='derp'
 	context = {'sitename':sitename, 'itemToSearch':itemToSearch, 'recipeTitle':recipeTitle, 'recipeToDisplay':recipeToDisplay, 'directions':directions, 'recipeImg':recipeImg, 'venues': venues} #render with vars
 	return render_to_response('homepage.html', context, context_instance=RequestContext(request))

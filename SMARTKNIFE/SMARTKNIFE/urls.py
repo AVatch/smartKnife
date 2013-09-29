@@ -14,5 +14,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'SMARTKNIFE.views.homepage_view'),
+    
+	url(r'^$', 'SMARTKNIFE.views.choose_page',name='choose'),
+	url(r'^result/(?P<itemToSearch>\w+)/$', 'SMARTKNIFE.views.homepage_view',name='result'),
 )
