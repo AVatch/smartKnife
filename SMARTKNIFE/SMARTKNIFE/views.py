@@ -35,21 +35,25 @@ def homepage_view(request):
 	results = client.venues.search(params={'query': itemToSearch, 'll':'40.7317, -73.9885'})
 
 	venues = []
+	count = 0
 	for items in results['venues']:
 		if items['name']=="Grocery Store" or items['name']=='Grocery store' or items['name']=='Grocery store!!':
+			continue
+		if count > 19:
 			continue
 		new_venue = {}
 		new_venue['name'] = items['name']
 		new_venue['lat']  = items['location']['lat']
 		new_venue['lon']  = items['location']['lng']
 		venues.append(new_venue)
+		count+=1
 
 	#js_data = simplejson.dumps(my_dict)
 
 	'''Pull recipes from Allrecipes.com'''
 	urlAddr = 'http://allrecipes.com/'
 	#REQUEST RECIPES FOR
-	veggie = 'pickles'
+	veggie = itemToSearch
 
 	req = recipeUrl.Request('http://allrecipes.com/search/default.aspx?qt=k&wt=' + veggie + '&rt=r&origin=Home%20Page')
 	f = recipeUrl.urlopen(req)
@@ -72,7 +76,7 @@ def homepage_view(request):
 
 	print venues
 
-	context = {'sitename':sitename, 'recipeToDisplay':recipeToDisplay, 'venues': venues} #render with vars
+	context = {'sitename':sitename, 'itemToSearch':itemToSearch, 'recipeToDisplay':recipeToDisplay, 'venues': venues} #render with vars
 	return render_to_response('homepage.html', context, context_instance=RequestContext(request))
 
 

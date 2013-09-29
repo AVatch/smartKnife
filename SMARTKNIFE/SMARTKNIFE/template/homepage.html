@@ -8,7 +8,7 @@
 
 	<div class="row">
 		<div class="span6">
-			<h3>Map of the area</h3>
+			<h3>Map of the Area ;)</h3>
 			<div id="mapContainer"></div>
 			<div id="uiContainer"></div>
 			<script type="text/javascript" id="exampleJsSource">
@@ -24,19 +24,24 @@
 					center: [40.72, -74],
 					zoomLevel: 12,
 					// We add the behavior component to allow panning / zooming of the map
-					components:[new nokia.maps.map.component.Behavior()]
+					components:[new nokia.maps.map.component.Behavior(),
+					new nokia.maps.map.component.ZoomBar()
+					]
 				});
 
 				/* Create a marker on a specified geo coordinate 
 				 */
 
 				var coords = [{% for venue in venues %}{'name':"{{venue.name}}",'lat':{{venue.lat}},'lon':{{venue.lon}}},{% endfor %}];
-
+				var count = 0
 				for(var key in coords){
 					var marker = new nokia.maps.geo.Coordinate(coords[key].lat,coords[key].lon);
-					var standardMarker = new nokia.maps.map.StandardMarker(marker);
+					var standardMarker = new nokia.maps.map.StandardMarker(marker, { 
+							text: count, 
+					});
 					// Next we need to add it to the map's object collection so it will be rendered onto the map.
 					map.objects.add(standardMarker);
+					count++;
 				} 
 				
 
@@ -53,17 +58,18 @@
 				});
 			</script>
 		</div>
-		<div class="span3">
+		<div class="span5" style="border-left-style:dotted; border-width:5px; padding-left:10px;">
 
-			<h3>Loading Nearby Grocery Stores</h3>
+			<h3>Loading Nearby {{ itemToSearch }} Venues ;)</h3>
 				<ol>
 					{% for venue in venues %}<li>{{venue.name}}</li>{% endfor %}
 				</ol>
 		</div>	
 	</div>
-	<div class="row">
-		<div class="span9">
-			<h3>Recipes</h3>
+	<div class="row" style="border-top-style:solid;
+border-width:5px;">
+		<div class="span11">
+			<h3>Recipes ;)</h3>
 			<!--<iframe src="{{recipeToDisplay}}" width="800" height="500"></iframe>-->
 		</div>
 	</div>
