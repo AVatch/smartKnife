@@ -1,0 +1,11 @@
+import urllib2 as recipeUrl
+import sys
+
+urlAddr = argv[1:]
+veggie = argv[2:]
+
+req = recipeUrl.Request(url=urlAddr, data=veggie)
+f = recipeUrl.urlopen(req)
+    
+print f.read(100)
+
