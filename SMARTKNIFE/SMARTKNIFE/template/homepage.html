@@ -3,6 +3,29 @@
 
 {% block content %}
 
+<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ itemToSearch }}</h4>
+      </div>
+      <div class="modal-body">
+        {% if itemToSearch == "Potato" %}
+        	<img border="0" src="{% static "potato.jpg"%}" alt="Potato" width="304" height="228">
+        	<embed height="1" width="1" src="{% static "Potato.mp3"%}">
+
+        {% endif %}
+
+        {% if itemToSearch == "Tomato" %}
+	        <img border="0" src="{% static "tomato.jpg"%}" alt="Tomato" width="304" height="228">
+	        <embed height="1" width="1" src="{% static "Tomato.mp3"%}">
+        {% endif %}
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div class="container">
 <h1>Welcome to the Future of Social Hacking ;)</h1>
 
@@ -12,6 +35,11 @@
 			<div id="mapContainer"></div>
 			<div id="uiContainer"></div>
 			<script type="text/javascript" id="exampleJsSource">
+				 $(function ()    
+					{ $("#myModal").modal();    
+				});  
+
+
 				nokia.Settings.set("app_id", "0aTWVUnvsgTleHtfY2u5"); 
 				nokia.Settings.set("app_code", "WnXVwKkX52k6OLlCPWDiMQ");
 				nokia.Settings.set("serviceMode", "cit");
@@ -60,7 +88,7 @@
 		</div>
 		<div class="span5" style="border-left-style:dotted; border-width:5px; padding-left:10px;">
 
-			<h3>Loading Nearby {{ itemToSearch }} Venues ;)</h3>
+			<h3>20 Nearby {{ itemToSearch }} Venues ;)</h3>
 				<ol>
 					{% for venue in venues %}<li>{{venue.name}}</li>{% endfor %}
 				</ol>
@@ -68,9 +96,15 @@
 	</div>
 	<div class="row" style="border-top-style:solid;
 border-width:5px;">
-		<div class="span11">
-			<h3>Recipes ;)</h3>
-			<!--<iframe src="{{recipeToDisplay}}" width="800" height="500"></iframe>-->
+		<div class="span11" style="padding-bottom:50px;">
+			<h3>Recipes for {{ recipeTitle }} ;)</h3>
+					<!--<iframe src="{{recipeToDisplay}}" width="800" height="500"></iframe>-->
+			<img class="pull-left" src={{recipeImg}} href={{recipeToDisplay}} style="padding-right:30px;"></img>
+
+			<ol>
+				{% for step in directions %} <li>{{step}}</li>{% endfor %}
+			</ol>
+			<a href={{recipeToDisplay}}>SOURCE</a>
 		</div>
 	</div>
 </div>

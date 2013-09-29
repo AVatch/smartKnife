@@ -15,12 +15,13 @@ import urllib
 import sys
 import webbrowser
 import random as rand
+import re as patt
 
 #Define Global Parameters - Foursquare
 clientID 		= '1RRP5FHPMPWLXO5CHEUABYGERS23HKQSQ4PDIKCO0TEODB44'
 clientSecret 	= '14W01MTLD5W1XKDT3P1ZRF2WVPWRNWBIUQYSZMUB0IYK2L1O'
 
-itemToSearch = 'pickles'
+itemToSearch = 'Potato'
 
 def homepage_view(request):
 	sitename = 'OpenEdit'
@@ -60,6 +61,8 @@ def homepage_view(request):
 	    
 	search =  f.read()
 	href = []
+	imageUrl = ''
+	recipeTitle = ''
 
 	for word in search.split(" "):
 	    if word.startswith('href="/Recipe/'):
@@ -68,15 +71,23 @@ def homepage_view(request):
 	for i in range(len(href)):
 	    href[i] = 'http://allrecipes.com'+href[i][6:]
 
-	randNumber = rand.randint(1, len(href))
+	randNumber = rand.randint(1, len(href)-1)
 	recipeToDisplay = href[randNumber]
+
+	randRecipeReq = recipeUrl.Request(href[randNumber])
+	randRecipe = recipeUrl.urlopen(randRecipeReq)
+	content = randRecipe.read()
+
+	recipe = []
+
+	m = patt.findall('plaincharacterwrap break">(.*?)</span>', content)
+	imageUrl = patt.search('http://images(.*?).jpg', content)
+	recipeTitle = patt.findall('itemprop="name">(.*?)</h1>', content)[0]
+
+	directions = m
+	recipeImg = imageUrl.group(0)
 
 	'''Nokia Maps Fun'''
 	#See embedded js in homepage.html
-
-	print venues
-
-	context = {'sitename':sitename, 'itemToSearch':itemToSearch, 'recipeToDisplay':recipeToDisplay, 'venues': venues} #render with vars
+	context = {'sitename':sitename, 'itemToSearch':itemToSearch, 'recipeTitle':recipeTitle, 'recipeToDisplay':recipeToDisplay, 'directions':directions, 'recipeImg':recipeImg, 'venues': venues} #render with vars
 	return render_to_response('homepage.html', context, context_instance=RequestContext(request))
-
-
