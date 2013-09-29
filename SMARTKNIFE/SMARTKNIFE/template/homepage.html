@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container">
+<h1>Welcome to the Future of Social Hacking ;)</h1>
+<ul>
+	{% for item in names %}
+		<li>{{item}}</li>
+	{% endfor %}
+</ul>
+
+</div>
+
+{% endblock %}

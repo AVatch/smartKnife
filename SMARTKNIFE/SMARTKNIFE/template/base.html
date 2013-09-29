@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html style="height: 100%; width: 100%" lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="OpenEdit">
+	<title>{% block title %}OpenEdit{% endblock %}</title>
+
+	<!-- Viewport -->
+	{% block viewport_base %}
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	{% endblock %}
+		<meta name="author" content="OpenEdit">
+	
+	<!-- Styles -->
+	{% block style_base %}
+		<link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+		<link href="{% static "bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
+	{% endblock %}
+</head>
+
+<body>
+	 <div class="wrapper">
+		<div id="header_container">
+			{% block top_nav %}
+				{% include "_account_bar.html" %}
+			{% endblock %}<!--Holds the login/register/search-bar/user/settings-->
+		</div>
+		<div id="body_content"> 
+			{% block content %}
+				<p>Content did not load..ohh noes</p>
+			{% endblock %}
+		</div>
+    </div>
+
+
+<!--Include javascripts here for faster loading-->
+	{% block script_base %}
+		<script src="{% static "bootstrap/js/jquery.js" %}"></script>
+		<script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+		{% block extra_script %}{% endblock %}
+	{% endblock %}
+</body>
+
+</html>
