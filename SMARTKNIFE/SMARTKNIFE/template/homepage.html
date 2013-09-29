@@ -5,11 +5,76 @@
 
 <div class="container">
 <h1>Welcome to the Future of Social Hacking ;)</h1>
-<ul>
-	{% for item in names %}
-		<li>{{item}}</li>
-	{% endfor %}
-</ul>
+
+<div class="row">
+	<div class="span9">
+		<h3>Recipes</h3>
+		<!--<iframe src="{{recipeToDisplay}}" width="800" height="500"></iframe>-->
+	</div>
+</div>
+
+<div class="row">
+	<div class="span6">
+		<h3>Map of the area</h3>
+		<div id="mapContainer"></div>
+		<div id="uiContainer"></div>
+		<script type="text/javascript" id="exampleJsSource">
+			/*	Setup authentication app_id and app_code 
+			*	WARNING: this is a demo-only key
+			*	please register for an Evaluation, Base or Commercial key for use in your app.
+			*	Just visit http://developer.here.com/get-started for more details. Thank you!
+			*/
+			nokia.Settings.set("app_id", "0aTWVUnvsgTleHtfY2u5"); 
+			nokia.Settings.set("app_code", "WnXVwKkX52k6OLlCPWDiMQ");
+			// Use staging environment (remove the line for production environment)
+			nokia.Settings.set("serviceMode", "cit");
+
+			// Get the DOM node to which we will append the map
+			var mapContainer = document.getElementById("mapContainer");
+			// Create a map inside the map container DOM node
+			var map = new nokia.maps.map.Display(mapContainer, {
+				// Initial center and zoom level of the map
+				center: [40.72, -74],
+				zoomLevel: 12,
+				// We add the behavior component to allow panning / zooming of the map
+				components:[new nokia.maps.map.component.Behavior()]
+			});
+
+			/* Create a marker on a specified geo coordinate 
+			 * (in this example we use the map's center as our coordinate)
+			 */
+
+			var coords = [{% for venue in venues %}{'name':"{{venue.name}}",'lat':{{venue.lat}},'lon':{{venue.lon}}},{% endfor %}];
+
+			for(var key in coords){
+				var marker = new nokia.maps.geo.Coordinate(coords[key].lat,coords[key].lon);
+				var standardMarker = new nokia.maps.map.StandardMarker(marker);
+				// Next we need to add it to the map's object collection so it will be rendered onto the map.
+				map.objects.add(standardMarker);
+			} 
+			
+
+			/* We create a UI notecontainer for example description
+			 * NoteContainer is a UI helper function and not part of the Nokia Maps API
+			 * See exampleHelpers.js for implementation details 
+			 */
+			var noteContainer = new NoteContainer({
+				id: "standardMarkerUi",
+				parent: document.getElementById("uiContainer"),
+				title: "Adding a StandardMarker",
+				content:
+					'<p>This is example shows how to quickly add a StandardMarker to the map.</p>'
+			});
+		</script>
+	</div>
+	<div class="span3">
+		<h3>Loading Nearby Grocery Stores</h3>
+			<ol>
+				{% for venue in venues %}<li>"{{venue.name}}"</li>{% endfor %}
+
+			</ol>
+	</div>	
+</div>
 
 </div>
 
