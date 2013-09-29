@@ -20,6 +20,7 @@ import random as rand
 clientID 		= '1RRP5FHPMPWLXO5CHEUABYGERS23HKQSQ4PDIKCO0TEODB44'
 clientSecret 	= '14W01MTLD5W1XKDT3P1ZRF2WVPWRNWBIUQYSZMUB0IYK2L1O'
 
+itemToSearch = 'pickles'
 
 def homepage_view(request):
 	sitename = 'OpenEdit'
@@ -31,7 +32,7 @@ def homepage_view(request):
 		client_secret=clientSecret)
 
 	#Search for venue
-	results = client.venues.search(params={'query': 'grocery store', 'll':'40.7317, -73.9885'})
+	results = client.venues.search(params={'query': itemToSearch, 'll':'40.7317, -73.9885'})
 
 	venues = []
 	for items in results['venues']:
@@ -48,7 +49,7 @@ def homepage_view(request):
 	'''Pull recipes from Allrecipes.com'''
 	urlAddr = 'http://allrecipes.com/'
 	#REQUEST RECIPES FOR
-	veggie = 'apples'
+	veggie = 'pickles'
 
 	req = recipeUrl.Request('http://allrecipes.com/search/default.aspx?qt=k&wt=' + veggie + '&rt=r&origin=Home%20Page')
 	f = recipeUrl.urlopen(req)
