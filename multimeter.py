@@ -18,9 +18,21 @@ while True:
 	else:
 		i = 0
 	pre_v = v
-	if i > 500:
+	if i > 100:
 		# open site to appropriate place
+		if v > 0.045:
+			tomato = True
+			potato = False
+		else:
+			tomato = False
+			potato = True
 		break
 
+import webbrowser
+
+if(potato):
+		webbrowser.open_new('http://127.0.0.1:8000/result/potato/')
+	else:
+		webbrowser.open_new('http://127.0.0.1:8000/result/tomato/')
 
 
