@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>smartKnife</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
+
+    <script src="{% static "bootstrap/js/jquery.min.js" %}"></script>
+	<link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+	<link href="{% static "bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
+    <style>
+
+    body{
+        background-image: url("{% static "retina_wood/retina_wood/retina_wood.png"%}");
+        background-repeat: repeat;
+    }
+    .container{
+        margin-top: 50px;
+    }
+
+    #history{
+
+    }
+
+    #basic-stream{
+        width: 500px;
+        height: 400px;
+    }
+
+    .debug {
+        border-style: solid;
+        border-width: 5px;
+    }
+    </style>
+
+</head>
+ 
+<body>
+    <div class="container"> 
+
+        <!-- This is where the video object gets placed. -->
+        <div class="row debug" id="">
+
+            <div class="col-6 debug" id="video">
+                <video id="video-stream" width="320" height="240" autoplay style="border:5px solid #000000">  </video>
+            </div>
+
+            <div class="col-6 debug" id="">
+                <canvas width="320" id="canvas" height="240" style="border:5px solid #000000"> </canvas>
+            </div>
+
+            <div class="col-6 debug" id="">
+                <h3>Color History</h3>  
+                <div id="history"></div>
+            </div>
+        </div>
+
+        <div class="row debug" id="">
+            <div class="col-2" id="debug">
+                <button id="btn" onclick="start()">Start</button>
+                <button id="pause-button">Pause</button>
+            </div>
+        </div>
+    </div>
+	<script>
+	function relocate(item) {
+		if (item == 'Potato') {	
+			window.location="http://127.0.0.1:8000/result/potato";
+			//derp
+		} else {
+			window.location="http://127.0.0.1:8000/result/tomato";
+			//herp
+		}
+	}
+	</script>
+    <script src="{% static "color.js" %}"></script>
+</body>
+</html>

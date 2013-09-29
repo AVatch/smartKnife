@@ -2,7 +2,6 @@
 {% load staticfiles %}
 
 {% block content %}
-
 <div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -10,17 +9,19 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">{{ itemToSearch }}</h4>
       </div>
+
       <div class="modal-body">
-        {% if itemToSearch == "Potato" %}
+        {% if itemToSearch == "potato" %}
         	<img border="0" src="{% static "potato.jpg"%}" alt="Potato" width="304" height="228">
         	<embed height="1" width="1" src="{% static "Potato.mp3"%}">
 
         {% endif %}
 
-        {% if itemToSearch == "Tomato" %}
+        {% if itemToSearch == "tomato" %}
 	        <img border="0" src="{% static "tomato.jpg"%}" alt="Tomato" width="304" height="228">
 	        <embed height="1" width="1" src="{% static "Tomato.mp3"%}">
         {% endif %}
+
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
