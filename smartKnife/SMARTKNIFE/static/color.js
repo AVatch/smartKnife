@@ -33,7 +33,8 @@ var video   = document.getElementById("video-stream");
                 
                 var div = document.getElementById('history');
                 div.style.backgroundColor = hex;
-				if (p[0] > 150) {
+                console.log(p[0]);
+				if (p[0] > 180) {
 					relocate('Tomato');
 				} else {
 					relocate('Potato');
