@@ -21,8 +21,8 @@ import random as rand
 import re as patt
 
 #Define Global Parameters - Foursquare
-clientID 		= '1RRP5FHPMPWLXO5CHEUABYGERS23HKQSQ4PDIKCO0TEODB44'
-clientSecret 	= '14W01MTLD5W1XKDT3P1ZRF2WVPWRNWBIUQYSZMUB0IYK2L1O'
+clientID 		= ''
+clientSecret 	= ''
 
 #itemToSearch = 'Potato'
 
@@ -99,8 +99,8 @@ def homepage_view(request,itemToSearch=''):
 	recipeImg = imageUrl.group(0)
 
 	'''Twilio'''
-	account_sid = "ACa9d55e2824dbbbd3bda7b4e5a7a2e418"
-	auth_token = "4e9d3571e0828ee83f24685fc4566615"
+	account_sid = ""
+	auth_token = ""
 	client = TwilioRestClient(account_sid, auth_token)
 
 	message = client.messages.create(to="+12673349121", from_="+16314065044",
