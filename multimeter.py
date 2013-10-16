@@ -1,6 +1,6 @@
 import serial
 
-ser = serial.Serial('/dev/tty.usbmodem1411',9600)
+ser = serial.Serial('/dev/tty.usbmodem1421',9600)
 
 i = 0
 v = 0
@@ -22,7 +22,7 @@ while True:
 	pre_v = v
 	if i > 10:
 		# open site to appropriate place
-		if v > 0.045:
+		if v > 0.055:
 			tomato = False
 			potato = True
 		else:

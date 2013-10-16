@@ -7,6 +7,8 @@ from django.template						import Context
 from django.template						import RequestContext
 from django.utils 							import simplejson
 from django.core.urlresolvers import reverse
+from settings import KEYS
+
 
 import foursquare
 
@@ -20,9 +22,17 @@ import webbrowser
 import random as rand
 import re as patt
 
+
+
 #Define Global Parameters - Foursquare
-clientID 		= ''
-clientSecret 	= ''
+try:
+	clientID = KEYS['foursquare_clientSecret'] 
+except:
+	clientID = ""
+try:
+	clientSecret = KEYS['foursquare_clientID'] 
+except:
+	clientSecret = ""
 
 #itemToSearch = 'Potato'
 
@@ -99,19 +109,37 @@ def homepage_view(request,itemToSearch=''):
 	recipeImg = imageUrl.group(0)
 
 	'''Twilio'''
-	account_sid = ""
-	auth_token = ""
-	client = TwilioRestClient(account_sid, auth_token)
+	try:
+		account_sid = KEYS['twilio_account_sid'] 
+	except:
+		account_sid = ""
+	try:
+		auth_token = KEYS['twilio_auth_token']
+	except:
+		auth_token = ""
 
-	message = client.messages.create(to="+12673349121", from_="+16314065044",
-                                     body="Hello there! I am chopping "+itemToSearch+"!")
-	message = client.messages.create(to="+13479071371", from_="+16314065044",
-                                     body="Hello there! I am chopping "+itemToSearch+"!")
-	message = client.messages.create(to="+1 917-272-7758", from_="+16314065044",
-                                     body="Hello there! I am chopping "+itemToSearch+"!")
+	try:
+		nokia_app_id = KEYS['nokia_app_id']
+	except:
+		nokia_app_id = ""
+	try:
+		nokia_app_code = KEYS['nokia_app_code']
+	except:
+		nokia_app_code = ""
+	
+	print nokia_app_id,nokia_app_code,auth_token,account_sid,clientID,clientSecret
+	# UNCOMMENT THE FOLLOWING LINES TO ENABLING TEXTING
+	#client = TwilioRestClient(account_sid, auth_token)
+
+	#message = client.messages.create(to="+12673349121", from_="+16314065044",
+       #                              body="Hello there! I am chopping "+itemToSearch+"!")
+	#message = client.messages.create(to="+13479071371", from_="+16314065044",
+      #                               body="Hello there! I am chopping "+itemToSearch+"!")
+	#message = client.messages.create(to="+1 917-272-7758", from_="+16314065044",
+     #                                body="Hello there! I am chopping "+itemToSearch+"!")
 
 	'''Nokia Maps Fun'''
 	#See embedded js in homepage.html
 	sitename='derp'
-	context = {'sitename':sitename, 'itemToSearch':itemToSearch, 'recipeTitle':recipeTitle, 'recipeToDisplay':recipeToDisplay, 'directions':directions, 'recipeImg':recipeImg, 'venues': venues} #render with vars
+	context = {'sitename':sitename, 'itemToSearch':itemToSearch, 'recipeTitle':recipeTitle, 'recipeToDisplay':recipeToDisplay, 'directions':directions, 'recipeImg':recipeImg, 'venues': venues, 'nokia_app_id':nokia_app_id,'nokia_app_code':nokia_app_code} #render with vars
 	return render_to_response('homepage.html', context, context_instance=RequestContext(request))

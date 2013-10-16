@@ -40,6 +40,14 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
+f = open(PROJECT_ROOT + '/API_KEYS.txt','r')
+KEYS = {}
+for line in f:
+	entry = line.replace('\n','').split(',')
+	KEYS[entry[0]] = entry[1]
+
+f.close()
+
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not

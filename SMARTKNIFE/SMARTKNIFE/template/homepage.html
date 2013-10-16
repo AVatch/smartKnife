@@ -40,9 +40,8 @@
 					{ $("#myModal").modal();    
 				});  
 
-
-				nokia.Settings.set("app_id", ""); 
-				nokia.Settings.set("app_code", "");
+				nokia.Settings.set("app_id", "{{ nokia_app_id }}"); 
+				nokia.Settings.set("app_code", "{{ nokia_app_code }}");
 				nokia.Settings.set("serviceMode", "cit");
 
 				// Get the DOM node to which we will append the map

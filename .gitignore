@@ -2,6 +2,8 @@ media/**
 test_files/**
 OpenEditEnv/**
 cookbooks/
+API_KEYS.txt
+
 
 *.swp
 
